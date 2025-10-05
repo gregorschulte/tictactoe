@@ -1,14 +1,14 @@
-#include <DmxSimple.h>                      // import DmxSimple library
+#include <DmxSimple.h>                               // import DmxSimple library
 
-int tictactoe[3][3] = {0};                  // initialize matrix for result calculation
+int tictactoe[3][3] = {0};                           // initialize matrix for result calculation
 
 // define Colors for 7 channels DMX fixture
-int aus[7]   = {255,   0,   0,   0, 0, 0, 0};      // define rgb color off (master full, RGB off)
-int rot[7]   = {255, 255,   0,   0, 0, 0, 0};      // define rgb color red (master full, red on)
-int blau[7]  = {255,   0,   0, 255, 0, 0, 0};      // define rgb color blue (master full, blue on)
-int gruen[7] = {255,   0, 255,   0, 0, 0, 0};      // define rgb color green for animations
-int gelb[7]  = {255, 255, 255,   0, 0, 0, 0};      // define rgb color yellow for tie game
-int weiss[7] = {255, 255, 255, 255, 0, 0, 0};      // define rgb color white for animations
+int aus[7]   = {255,   0,   0,   0, 0, 0, 0};        // define rgb color off (master full, RGB off)
+int rot[7]   = {255, 255,   0,   0, 0, 0, 0};        // define rgb color red (master full, red on)
+int blau[7]  = {255,   0,   0, 255, 0, 0, 0};        // define rgb color blue (master full, blue on)
+int gruen[7] = {255,   0, 255,   0, 0, 0, 0};        // define rgb color green for animations
+int gelb[7]  = {255, 255, 255,   0, 0, 0, 0};        // define rgb color yellow for tie game
+int weiss[7] = {255, 255, 255, 255, 0, 0, 0};        // define rgb color white for animations
 
 int arrayPositionX[9] = {0, 0, 0, 1, 1, 1, 2, 2, 2}; // array coordinate for given lamp number
 int arrayPositionY[9] = {0, 1, 2, 0, 1, 2, 0, 1, 2}; // array coordinate for given lamp number
@@ -22,11 +22,11 @@ int maxChannels = 64;                                 // defining the maximum nu
 
 // idle stuff
 unsigned long uptime_last_change;
-int max_idle_time = 1000 * 5 * 1;                    // in milliseconds after if no one is playing go to animation
+int max_idle_time = 1000 * 10 * 1;                     // in milliseconds after if no one is playing go to animation
 
 int last_tictactoe[3][3] = {0};
-bool gameWon = false;  // Track if game is won
-int currentAnimationScene = 0;  // Track current animation scene
+bool gameWon = false;                                 // Track if game is won
+int currentAnimationScene = 0;                        // Track current animation scene
 
 void setup() {
   Serial.begin(9600);                                 
@@ -34,7 +34,7 @@ void setup() {
   print_tictactoe();                                  
   delay(1000);
 
-  // Fixed: Loop should be i < 9, not i < 10
+  // initialize Inputs
   for (int i = 0; i < 9; i++)                          
   {
     pinMode(r[i], INPUT_PULLUP); 
