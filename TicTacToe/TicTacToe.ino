@@ -2,13 +2,13 @@
 
 int tictactoe[3][3] = {0};                  // initialize matrix for result calculation
 
-// Fixed: Arrays should have 7 elements, not 3
+// define Colors for 7 channels DMX fixture
 int aus[7]   = {255,   0,   0,   0, 0, 0, 0};      // define rgb color off (master full, RGB off)
-int rot[7]   = {255, 255,   0,   0, 0, 0, 0};    // define rgb color red (master full, red on)
-int blau[7]  = {255,   0,   0, 255, 0, 0, 0};    // define rgb color blue (master full, blue on)
-int gruen[7] = {255,   0, 255,   0, 0, 0, 0};   // define rgb color green for animations
-int gelb[7]  = {255, 255, 255,   0, 0, 0, 0};  // define rgb color yellow for tie game
-int weiss[7] = {255, 255, 255, 255, 0, 0, 0}; // define rgb color white for animations
+int rot[7]   = {255, 255,   0,   0, 0, 0, 0};      // define rgb color red (master full, red on)
+int blau[7]  = {255,   0,   0, 255, 0, 0, 0};      // define rgb color blue (master full, blue on)
+int gruen[7] = {255,   0, 255,   0, 0, 0, 0};      // define rgb color green for animations
+int gelb[7]  = {255, 255, 255,   0, 0, 0, 0};      // define rgb color yellow for tie game
+int weiss[7] = {255, 255, 255, 255, 0, 0, 0};      // define rgb color white for animations
 
 int arrayPositionX[9] = {0, 0, 0, 1, 1, 1, 2, 2, 2}; // array coordinate for given lamp number
 int arrayPositionY[9] = {0, 1, 2, 0, 1, 2, 0, 1, 2}; // array coordinate for given lamp number
