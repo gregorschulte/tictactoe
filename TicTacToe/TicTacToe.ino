@@ -183,6 +183,7 @@ void setLamp(int channel, int color[])
 void win_animation(int total, int typ, int position)
 {
   int* color;  // Changed to pointer
+  
 
   // Output to serial connection and set color
   if(total == -3){
@@ -216,6 +217,9 @@ void win_animation(int total, int typ, int position)
       if(typ == 0) // row win
       {
         setLamp(3 * position + i, color);
+        //setLamp(1,color);
+        //setLamp(2,color);
+        //setLamp(3,color);
       }
       if(typ == 1) // column win
       {
