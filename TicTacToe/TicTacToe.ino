@@ -44,6 +44,7 @@ void setup() {
   DmxSimple.usePin(11);                               
   DmxSimple.maxChannel(maxChannels);                  
 
+// set all channes to black
   for (int i = 0; i < maxChannels; i++)               
   {
     DmxSimple.write(i, 0);
@@ -252,10 +253,12 @@ void tie_animation() {
   for(int i = 0; i < 5; i++) {
     for(int n = 0; n < 9; n++) {
       setLamp(n, gelb);
+      Serial.println("yellow");
     }
     delay(300);
     for(int n = 0; n < 9; n++) {
       setLamp(n, aus);
+      Serial.println("off");
     }
     delay(300);
   }
