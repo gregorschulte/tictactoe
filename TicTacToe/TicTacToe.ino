@@ -2,13 +2,15 @@
 
 int tictactoe[3][3] = {0};                           // initialize matrix for result calculation
 
+int brightness = 64;
+
 // define Colors for 7 channels DMX fixture
-int aus[7]   = {255,   0,   0,   0, 0, 0, 0};        // define rgb color off (master full, RGB off)
-int rot[7]   = {255, 255,   0,   0, 0, 0, 0};        // define rgb color red (master full, red on)
-int blau[7]  = {255,   0,   0, 255, 0, 0, 0};        // define rgb color blue (master full, blue on)
-int gruen[7] = {255,   0, 255,   0, 0, 0, 0};        // define rgb color green for animations
-int gelb[7]  = {255, 255, 255,   0, 0, 0, 0};        // define rgb color yellow for tie game
-int weiss[7] = {255, 255, 255, 255, 0, 0, 0};        // define rgb color white for animations
+int aus[7]   = {brightness,   0,   0,   0, 0, 0, 0};        // define rgb color off (master full, RGB off)
+int rot[7]   = {brightness, 255,   0,   0, 0, 0, 0};        // define rgb color red (master full, red on)
+int blau[7]  = {brightness,   0,   0, 255, 0, 0, 0};        // define rgb color blue (master full, blue on)
+int gruen[7] = {brightness,   0, 255,   0, 0, 0, 0};        // define rgb color green for animations
+int gelb[7]  = {brightness, 255, 255,   0, 0, 0, 0};        // define rgb color yellow for tie game
+int weiss[7] = {brightness, 255, 255, 255, 0, 0, 0};        // define rgb color white for animations
 
 int arrayPositionX[9] = {0, 0, 0, 1, 1, 1, 2, 2, 2}; // array coordinate for given lamp number
 int arrayPositionY[9] = {0, 1, 2, 0, 1, 2, 0, 1, 2}; // array coordinate for given lamp number
@@ -22,7 +24,7 @@ int maxChannels = 64;                                 // defining the maximum nu
 
 // idle stuff
 unsigned long uptime_last_change;
-int max_idle_time = 1000 * 10 * 1;                     // in milliseconds after if no one is playing go to animation
+int max_idle_time = 1000 * 300 * 1;                     // in milliseconds after if no one is playing go to animation
 
 int last_tictactoe[3][3] = {0};
 bool gameWon = false;                                 // Track if game is won
@@ -206,34 +208,78 @@ void win_animation(int total, int typ, int position)
   // blink the winner series
   Serial.print("Blink the winning positions.\n");
   int no_of_blinks = 10; 
-  int on_time = 200;     
-  int off_time = 200;    
+  int on_time = 400;     
+  int off_time = 400;    
 
   for (int n = 0; n < no_of_blinks; n++)
   {
     // light up the 3 winning lights in right color
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++ )
     {
       if(typ == 0) // row win
       {
-        setLamp(3 * position + i, color);
-        //setLamp(1,color);
-        //setLamp(2,color);
-        //setLamp(3,color);
+        if (position==0){
+          setLamp(0,color);
+          setLamp(1,color);
+          setLamp(2,color);
+          Serial.println("an");
+        }
+        if (position == 1){
+          setLamp(3,color);
+          setLamp(4,color);
+          setLamp(5,color);
+          Serial.println("an");
+        }
+        if (position == 2){
+          setLamp(6,color);
+          setLamp(7,color);
+          setLamp(8,color);
+          Serial.println("an");
+        }
+
       }
       if(typ == 1) // column win
       {
-        setLamp(position + 3 * i, color);
+        if (position==0){
+          setLamp(0,color);
+          setLamp(3,color);
+          setLamp(6,color);
+          Serial.println("an");
+        }
+        if (position == 1){
+          setLamp(1,color);
+          setLamp(4,color);
+          setLamp(7,color);
+          Serial.println("an");
+        }
+        if (position == 2){
+          setLamp(2,color);
+          setLamp(6,color);
+          setLamp(8,color);
+          Serial.println("an");
+        }        
+
+
+
+
+
+
       }
       if(typ == 2) // diagonal win
       {
         if(position == 0)
         {
-          setLamp(4 * i, color);
+          setLamp(0,color);
+          setLamp(4,color);
+          setLamp(7,color);
+          Serial.println("an");
          }
         if(position == 1)
         {
-          setLamp(2 + 2 * i, color);  // Fixed: should be 2,4,6
+          setLamp(2,color);
+          setLamp(4,color);
+          setLamp(6,color);
+          Serial.println("an");
         }
       }
     }
@@ -243,6 +289,7 @@ void win_animation(int total, int typ, int position)
     for (int n = 0; n < 9; n++)  
     {
       setLamp(n, aus);
+      Serial.println("aus");
     }
     delay(off_time);
   }
@@ -334,15 +381,18 @@ void idle_animation() {
   // Keep checking for player activity
   while(no_player_present() == 1) {
     
-    currentAnimationScene = (currentAnimationScene + 1) % 4;  // Cycle through 4 scenes
+    currentAnimationScene = 0; //(currentAnimationScene + 1) % 4;  // Cycle through 4 scenes
     
     switch(currentAnimationScene) {
       case 0:  // Wave pattern
         for(int i = 0; i < 9; i++) {
           setLamp(i, gruen);
-          delay(100);
+          Serial.print(i + " ");
+          Serial.println("idleOn");
+          delay(1000);
           setLamp(i, aus);
-          if(no_player_present() != 1) return;
+          Serial.println("idle_off");
+          if(no_player_present() != 1) break;
         }
         break;
         
